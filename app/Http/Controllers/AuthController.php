@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
-    {   
+    {
         $user = User::create($request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -63,7 +63,7 @@ class AuthController extends Controller
         return response(status: 204);
     }
 
-    public function emailVerify($user_id, Request $request) 
+    public function emailVerify($user_id, Request $request)
     {
         if (!$request->hasValidSignature()) {
             return response()->json([
@@ -92,7 +92,7 @@ class AuthController extends Controller
         ], 400);
     }
 
-    public function resendEmailVerificationMail(Request $request) 
+    public function resendEmailVerificationMail(Request $request)
     {
         $user_id = $request->input('user_id');
 

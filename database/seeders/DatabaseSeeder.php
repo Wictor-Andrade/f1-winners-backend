@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,13 +14,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        DB::table('users')->truncate();
 
         User::factory()->create([
             'first_name' => 'Admin',
             'last_name' => 'souzs',
             'email' => 'admin@souzs.com',
             'password' => Hash::make('123456'),
+        ]);
+
+        $this->call([
+            CountrySeeder::class,
+            TeamSeeder::class,
+            DriverSeeder::class,
         ]);
     }
 }
